@@ -2,90 +2,330 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Store – Everyday AI & Templates</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ELES — Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body { font-family: 'Inter', sans-serif; }
+    :root{
+      --pink:#e72582; /* badge */
+      --navy:#1f2a52; /* headings */
+      --teal:#00bec7; /* accents */
+      --light:#d2f0f0; /* pill bg */
+    }
+    *{box-sizing:border-box}
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--navy);}
+    .btn{display:inline-flex;align-items:center;justify-content:center;border-radius:1rem;font-weight:700}
+    .btn-primary{background:var(--teal);color:#fff}
+    .btn-primary:hover{filter:brightness(.9)}
+    .btn-outline{border:2px solid var(--navy);color:var(--navy)}
+    .chip{border:1px solid #cbd5e1;border-radius:999px;padding:.375rem .75rem;cursor:pointer;user-select:none}
+    .chip.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+    .shadow-soft{box-shadow:0 8px 30px rgba(31,42,82,.08)}
   </style>
 </head>
 <body class="bg-gray-50">
-  <section class="max-w-7xl mx-auto p-6">
-    <h1 class="text-3xl font-bold mb-2">Everyday AI, eLearning Courses & Templates</h1>
-    <p class="text-gray-600 mb-6">Focused, practical training and ready-to-use templates to help you master AI tools, develop learning resources, and make informed technology choices.</p>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-
-      <!-- Everyday AI - Copilot -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg overflow-hidden">
-        <img src="Every%20day%20AI%20-%20Copilot.png" alt="Everyday AI - Copilot" class="w-full h-48 object-cover">
-        <div class="p-4">
-          <span class="text-xs bg-pink-500 text-white px-2 py-1 rounded">New</span>
-          <h2 class="font-semibold mt-2">Every day AI - Copilot</h2>
-          <p class="text-gray-600">Use Microsoft Copilot across Word, Excel, Outlook & Teams to plan, write, analyse and organise faster.</p>
-          <p class="font-semibold mt-2">$49.50 inc GST</p>
-          <button class="text-teal-600 mt-2" onclick="openModal('copilot')">View details</button>
+  <!-- Header -->
+  <header class="sticky top-0 z-30 bg-white/90 backdrop-blur border-b border-slate-200">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
+      <div>
+        <h1 class="text-3xl font-extrabold tracking-tight" style="color:var(--navy)">Everyday AI, eLearning Courses & Templates</h1>
+        <p class="mt-2 text-slate-600">Focused, practical training and ready‑to‑use templates to help you master AI tools, develop learning resources, and make informed technology choices.</p>
+        <div class="mt-4 flex flex-wrap gap-3">
+          <span class="chip active" data-category="all">All</span>
+          <span class="chip" data-category="courses">Short courses</span>
+          <span class="chip" data-category="templates">Templates</span>
         </div>
       </div>
+      <!-- Cart button with count -->
+      <button id="cartBtn" class="btn btn-outline px-4 py-2" aria-label="Open cart">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25h10.836c.958 0 1.8-.596 2.122-1.497l1.494-4.242A1.125 1.125 0 0 0 20.919 7.5H5.108M7.5 14.25 5.25 5.25m2.25 9a2.25 2.25 0 1 0 0 4.5m10.5-4.5a2.25 2.25 0 1 0 0 4.5"/></svg>
+        Cart <span id="cartCount" class="ml-2 inline-flex items-center justify-center text-xs font-bold bg-[var(--light)] text-[var(--navy)] rounded-full w-6 h-6">0</span>
+      </button>
+    </div>
+  </header>
 
-      <!-- Everyday AI - Gemini -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg overflow-hidden">
-        <img src="Every%20day%20AI%20-%20Gemini.png" alt="Everyday AI - Gemini" class="w-full h-48 object-cover">
-        <div class="p-4">
-          <span class="text-xs bg-pink-500 text-white px-2 py-1 rounded">New</span>
-          <h2 class="font-semibold mt-2">Every day AI - Gemini</h2>
-          <p class="text-gray-600">Leverage Google’s Gemini in Gmail, Docs, Sheets & Meet to draft, summarise, and analyse data.</p>
-          <p class="font-semibold mt-2">$49.50 inc GST</p>
-          <button class="text-teal-600 mt-2" onclick="openModal('gemini')">View details</button>
-        </div>
-      </div>
+  <!-- Grid -->
+  <main class="mx-auto max-w-7xl px-4 py-8">
+    <div id="grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </main>
 
-      <!-- Everyday AI - ChatGPT -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg overflow-hidden">
-        <img src="Every%20day%20AI%20-%20ChatGPT.png" alt="Everyday AI - ChatGPT" class="w-full h-48 object-cover">
-        <div class="p-4">
-          <span class="text-xs bg-pink-500 text-white px-2 py-1 rounded">New</span>
-          <h2 class="font-semibold mt-2">Every day AI - ChatGPT</h2>
-          <p class="text-gray-600">Master ChatGPT for ideation, drafting, research and problem-solving.</p>
-          <p class="font-semibold mt-2">$49.50 inc GST</p>
-          <button class="text-teal-600 mt-2" onclick="openModal('chatgpt')">View details</button>
-        </div>
-      </div>
-
-      <!-- Developing online case studies -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg overflow-hidden">
-        <img src="Developing%20online%20case%20studies.png" alt="Developing online case studies" class="w-full h-48 object-cover">
-        <div class="p-4">
-          <span class="text-xs bg-purple-500 text-white px-2 py-1 rounded">Free</span>
-          <h2 class="font-semibold mt-2">Developing online case studies</h2>
-          <p class="text-gray-600">Tips for creating engaging short and long case studies.</p>
-          <p class="font-semibold mt-2">Free</p>
-          <button class="text-teal-600 mt-2" onclick="openModal('case-studies')">View details</button>
-        </div>
-      </div>
-
-      <!-- Learning Design Template -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg overflow-hidden">
-        <img src="Learning%20Design%20Template.png" alt="Learning Design Template" class="w-full h-48 object-cover">
-        <div class="p-4">
-          <h2 class="font-semibold mt-2">Learning Design Template</h2>
-          <p class="text-gray-600">Fill-in template for course design — outcomes, sequence, and assessment.</p>
-          <p class="font-semibold mt-2">$18.00 inc GST</p>
-          <button class="text-teal-600 mt-2" onclick="openModal('learning-template')">View details</button>
-        </div>
-      </div>
-
-      <!-- LMS Needs Analysis -->
-      <div class="bg-white rounded-lg shadow hover:shadow-lg overflow-hidden">
-        <img src="LMS%20Needs%20Analysis.png" alt="LMS Needs Analysis" class="w-full h-48 object-cover">
-        <div class="p-4">
-          <h2 class="font-semibold mt-2">LMS Needs Analysis</h2>
-          <p class="text-gray-600">Worksheet to identify LMS requirements before talking to vendors.</p>
-          <p class="font-semibold mt-2">$25.00 inc GST</p>
-          <button class="text-teal-600 mt-2" onclick="openModal('lms-analysis')">View details</button>
+  <!-- Modal (product details) -->
+  <div id="productModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 p-4" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="bg-white max-w-lg w-full rounded-xl shadow-lg overflow-hidden relative">
+      <button onclick="closeModal()" class="absolute top-3 right-3 text-slate-500 hover:text-slate-700 text-2xl font-bold" aria-label="Close">&times;</button>
+      <img id="modalImg" class="w-full h-56 object-cover" alt=""/>
+      <div class="p-6">
+        <h3 id="modalTitle" class="text-xl font-extrabold"></h3>
+        <p id="modalDesc" class="mt-3 text-slate-700"></p>
+        <ul id="modalBullets" class="mt-4 list-disc list-inside text-slate-700 hidden"></ul>
+        <p id="modalNote" class="mt-4 text-xs text-slate-500 hidden"></p>
+        <div class="mt-6 flex items-center justify-between">
+          <span id="modalPrice" class="font-extrabold"></span>
+          <a id="modalPay" href="#" class="btn btn-primary px-4 py-2">Add to cart</a>
         </div>
       </div>
     </div>
-  </section>
-  <!-- Modals would be defined here with the course details, bullets, and notes -->
+  </div>
+
+  <!-- Cart Drawer -->
+  <aside id="cart" class="fixed top-0 right-0 h-full w-[92%] sm:w-[28rem] bg-white border-l border-slate-200 shadow-2xl translate-x-full transition-transform duration-300 z-40 flex flex-col">
+    <div class="p-4 border-b border-slate-200 flex items-center justify-between">
+      <h3 class="text-xl font-extrabold">Your cart</h3>
+      <button id="closeCart" aria-label="Close cart" class="p-2">✕</button>
+    </div>
+    <div id="cartItems" class="flex-1 overflow-auto p-4 space-y-3"></div>
+    <div class="p-4 border-t border-slate-200 space-y-3">
+      <div class="flex items-center justify-between font-bold">
+        <span>Subtotal</span>
+        <span id="cartSubtotal">$0.00</span>
+      </div>
+      <p class="text-xs text-slate-500">Prices in AUD. GST included where applicable.</p>
+      <a id="checkoutBtn" href="#" class="btn btn-primary w-full py-3 text-center">Proceed to Checkout</a>
+    </div>
+  </aside>
+  <div id="cartBackdrop" class="fixed inset-0 bg-black/30 backdrop-blur-sm hidden z-30"></div>
+
+  <script>
+    // GitHub image base path (files live in repo root)
+    const baseImgPath = "https://kathrynmcgilvrayeles.github.io/ELES-Store-Development-Webpage/";
+    const srcFromName = (name) => baseImgPath + encodeURIComponent(name);
+
+    const PRODUCTS = [
+      {
+        id:"everyday-copilot",
+        title:"Every day AI - Copilot",
+        category:"courses",
+        price:49.50,
+        badge:"New",
+        imgName:"Every day AI - Copilot.png",
+        desc:"Use Microsoft Copilot across Word, Excel, Outlook & Teams to plan, write, analyse and organise faster.",
+        details:"Harness Copilot inside Microsoft 365 to draft reports, analyse data, summarise emails and meetings, and plan projects. Includes prompt patterns and hands-on tasks.",
+        bullets:["Copilot in Word, Excel, Outlook & Teams","Prompt patterns for common tasks","Accuracy checks & privacy considerations"],
+        note:"Approx 45 min – 1 hour",
+        pay:"#"
+      },
+      {
+        id:"everyday-gemini",
+        title:"Every day AI - Gemini",
+        category:"courses",
+        price:49.50,
+        badge:"New",
+        imgName:"Every day AI - Gemini.png",
+        desc:"Leverage Google’s Gemini in Gmail, Docs, Sheets & Meet to draft, summarise, and analyse data.",
+        details:"Integrate Gemini into Google Workspace to speed up writing, research and spreadsheet work. Practical prompts and live examples included.",
+        bullets:["Gemini in Docs, Sheets, Gmail & Meet","Summarising, drafting, analysis workflows","Bias, privacy and quality checks"],
+        note:"Approx 45 min – 1 hour",
+        pay:"#"
+      },
+      {
+        id:"everyday-chatgpt",
+        title:"Every day AI - ChatGPT",
+        category:"courses",
+        price:49.50,
+        badge:"New",
+        imgName:"Every day AI - ChatGPT.png",
+        desc:"Master ChatGPT for ideation, drafting, research and problem‑solving.",
+        details:"Use ChatGPT to brainstorm, structure documents, create learning resources and troubleshoot. Learn to evaluate and refine outputs to professional standards.",
+        bullets:["Prompt frameworks for different tasks","Iterating from draft to polished output","Evaluating accuracy & tone"],
+        note:"Approx 45 min – 1 hour",
+        pay:"#"
+      },
+      {
+        id:"dev-online-case-studies",
+        title:"Developing online case studies",
+        category:"courses",
+        price:0,
+        badge:"Free",
+        imgName:"Developing online case studies.png",
+        desc:"Tips for creating engaging short and long case studies.",
+        details:"Developing online case studies does require good knowledge of your topic and some creative juices to make it interesting and useful. This short course provides you with some tips to develop both short and long case studies depending on the type of complexity you are after.",
+        bullets:["The importance of storytelling","The impact of empathy on the learner","Planning strategies","Technological considerations","Monitoring and measuring learner engagement"],
+        note:"All information contained in this course is copyright to eLearning Educational Solutions Pty Ltd and cannot be reused, reproduced or modified without the author's permission.",
+        pay:"#"
+      },
+      {
+        id:"learning-design-template",
+        title:"Learning Design Template",
+        category:"templates",
+        price:18,
+        badge:"",
+        imgName:"Learning Design Template.png",
+        desc:"Fill‑in template for course design — outcomes, sequence, and assessment.",
+        details:"Plan your course from goals to evaluation with a structured template covering outcomes, learner personas, content sequencing, assessment design, and resources.",
+        bullets:["Define outcomes & success criteria","Map sequence & activities","Plan assessments & resources"],
+        pay:"#"
+      },
+      {
+        id:"lms-needs-analysis",
+        title:"LMS Needs Analysis",
+        category:"templates",
+        price:25,
+        badge:"",
+        imgName:"LMS Needs Analysis.png",
+        desc:"Worksheet to identify LMS requirements before talking to vendors.",
+        details:"Clarify must‑haves vs nice‑to‑haves across features, integrations, budget, support, and user experience so vendor conversations stay focused.",
+        bullets:["Feature & integration checklist","Budget & support considerations","User roles, compliance & reporting"],
+        pay:"#"
+      }
+    ];
+
+    // Elements
+    const grid = document.getElementById('grid');
+    const chips = document.querySelectorAll('.chip');
+    const modal = document.getElementById('productModal');
+    const modalImg = document.getElementById('modalImg');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalBullets = document.getElementById('modalBullets');
+    const modalNote = document.getElementById('modalNote');
+    const modalPrice = document.getElementById('modalPrice');
+    const modalPay = document.getElementById('modalPay');
+    const cartBtn = document.getElementById('cartBtn');
+    const cart = document.getElementById('cart');
+    const closeCart = document.getElementById('closeCart');
+    const backdrop = document.getElementById('cartBackdrop');
+    const cartItems = document.getElementById('cartItems');
+    const cartSubtotal = document.getElementById('cartSubtotal');
+    const cartCount = document.getElementById('cartCount');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+
+    const state = { category: 'all', cart: [] };
+
+    function priceLabel(n){
+      if(n === 0) return 'Free';
+      return `${new Intl.NumberFormat('en-AU',{style:'currency',currency:'AUD'}).format(n)} inc GST`;
+    }
+
+    let currentProductId = null;
+    function openModalById(id){
+      const product = PRODUCTS.find(p=>p.id===id);
+      if(!product) return;
+      currentProductId = id;
+      const imgSrc = product.img || srcFromName(product.imgName);
+      modalImg.src = imgSrc;
+      modalImg.alt = product.title;
+      modalTitle.textContent = product.title;
+      modalDesc.textContent = product.details;
+
+      if(product.bullets && product.bullets.length){
+        modalBullets.innerHTML = product.bullets.map(b=>`<li>${b}</li>`).join('');
+        modalBullets.classList.remove('hidden');
+      } else {
+        modalBullets.classList.add('hidden');
+        modalBullets.innerHTML = '';
+      }
+
+      if(product.note){
+        modalNote.textContent = product.note;
+        modalNote.classList.remove('hidden');
+      } else {
+        modalNote.classList.add('hidden');
+        modalNote.textContent = '';
+      }
+
+      modalPrice.textContent = priceLabel(product.price);
+      modalPay.textContent = product.price === 0 ? 'Get Free' : 'Add to cart';
+      modalPay.onclick = (e)=>{ e.preventDefault(); addToCart(currentProductId); };
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeModal(){
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function cardImage(p){
+      return p.img || srcFromName(p.imgName);
+    }
+
+    function renderProducts(){
+      const items = PRODUCTS.filter(p => state.category==='all' ? true : p.category===state.category);
+      grid.innerHTML = items.map(p=>`
+        <article class="group relative bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-soft flex flex-col">
+          ${p.badge?`<span class='absolute left-3 top-3 text-xs font-bold bg-[var(--pink)] text-white px-2 py-1 rounded-full'>${p.badge}</span>`:''}
+          <div class="text-left">
+            <img src="${cardImage(p)}" alt="${p.title}" class="h-48 w-full object-cover" loading="lazy"/>
+            <div class="p-5 flex-1 flex flex-col gap-3">
+              <h3 class="text-lg font-extrabold">${p.title}</h3>
+              <p class="text-sm text-slate-600 flex-1">${p.desc}</p>
+              <div class="flex items-center justify-between">
+                <span class="font-extrabold">${priceLabel(p.price)}</span>
+                <div class="flex items-center gap-3">
+                  <button class="text-[var(--teal)] text-sm underline" onclick="openModalById('${p.id}')">View details</button>
+                  <button class="btn btn-primary px-3 py-1.5 text-sm" onclick="addToCart('${p.id}')">${p.price===0?'Get Free':'Add to cart'}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>`).join('');
+    }
+
+    // --- Cart logic ---
+    function addToCart(id){
+      const p = PRODUCTS.find(x=>x.id===id);
+      if(!p) return;
+      const existing = state.cart.find(x=>x.id===id);
+      if(existing) existing.qty += 1; else state.cart.push({id:p.id, title:p.title, price:p.price, qty:1, pay:p.pay});
+      updateCart();
+      openCart();
+    }
+
+    function removeFromCart(id){
+      state.cart = state.cart.filter(x=>x.id!==id);
+      updateCart();
+    }
+
+    function changeQty(id, delta){
+      const item = state.cart.find(i=>i.id===id);
+      if(!item) return;
+      item.qty += delta;
+      if(item.qty<=0) removeFromCart(id); else updateCart();
+    }
+
+    function updateCart(){
+      cartItems.innerHTML = state.cart.length? state.cart.map(item=>`
+        <div class="border border-slate-200 rounded-xl p-3 flex items-center justify-between">
+          <div>
+            <p class="font-semibold">${item.title}</p>
+            <p class="text-sm text-slate-500">${item.qty} × ${item.price===0?'Free':new Intl.NumberFormat('en-AU',{style:'currency',currency:'AUD'}).format(item.price)}</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button aria-label="Decrease" class="px-2 py-1 border rounded" onclick="changeQty('${item.id}',-1)">−</button>
+            <button aria-label="Increase" class="px-2 py-1 border rounded" onclick="changeQty('${item.id}',1)">+</button>
+            <button aria-label="Remove" class="px-2 py-1" onclick="removeFromCart('${item.id}')">✕</button>
+          </div>
+        </div>`).join('') : '<p class="text-slate-600">Your cart is empty.</p>';
+
+      const subtotal = state.cart.reduce((s,i)=> s + (i.price*i.qty), 0);
+      cartSubtotal.textContent = new Intl.NumberFormat('en-AU',{style:'currency',currency:'AUD'}).format(subtotal) + ' inc GST';
+      cartCount.textContent = state.cart.reduce((s,i)=> s + i.qty, 0);
+
+      const first = state.cart.find(i=>i.price>0);
+      checkoutBtn.href = first? first.pay : '#';
+      checkoutBtn.className = 'btn ' + (subtotal>0? 'btn-primary' : 'btn-outline') + ' w-full py-3 text-center';
+      checkoutBtn.textContent = subtotal>0? 'Proceed to Checkout' : 'Browse products';
+    }
+
+    function openCart(){ cart.classList.remove('translate-x-full'); backdrop.classList.remove('hidden'); }
+    function closeCartFn(){ cart.classList.add('translate-x-full'); backdrop.classList.add('hidden'); }
+
+    chips.forEach(ch=> ch.addEventListener('click',()=>{
+      chips.forEach(c=>c.classList.remove('active'));
+      ch.classList.add('active');
+      state.category = ch.dataset.category;
+      renderProducts();
+    }));
+
+    cartBtn.addEventListener('click', openCart);
+    document.getElementById('closeCart').addEventListener('click', closeCartFn);
+    backdrop.addEventListener('click', closeCartFn);
+
+    renderProducts();
+  </script>
 </body>
 </html>
