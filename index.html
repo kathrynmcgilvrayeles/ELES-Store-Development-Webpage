@@ -2,242 +2,90 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ELES — Store</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Store – Everyday AI & Templates</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    :root{
-      --pink:#e72582;
-      --grey:#abb5bf;
-      --navy:#1f2a52;
-      --teal:#00bec7;
-      --light:#d2f0f0;
-      --darker:#2e4d6b;
-    }
-    *{box-sizing:border-box}
-    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--navy);}
-    .btn{display:inline-flex;align-items:center;justify-content:center;border-radius:1rem;font-weight:700}
-    .btn-primary{background:var(--teal);color:#fff}
-    .btn-primary:hover{filter:brightness(.9)}
-    .btn-outline{border:2px solid var(--navy);color:var(--navy)}
-    .chip{border:1px solid var(--grey);border-radius:999px;padding:.375rem .75rem;cursor:pointer}
-    .chip.active{background:var(--navy);color:#fff;border-color:var(--navy)}
-    .shadow-soft{box-shadow:0 8px 30px rgba(31,42,82,.08)}
+    body { font-family: 'Inter', sans-serif; }
   </style>
 </head>
-<body class="bg-white">
-  <!-- Header -->
-  <header class="sticky top-0 z-30 bg-white/90 backdrop-blur border-b border-slate-200">
-    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
-      <h1 class="text-2xl font-extrabold tracking-tight" style="color:var(--navy)">Store</h1>
-    </div>
-  </header>
+<body class="bg-gray-50">
+  <section class="max-w-7xl mx-auto p-6">
+    <h1 class="text-3xl font-bold mb-2">Everyday AI, eLearning Courses & Templates</h1>
+    <p class="text-gray-600 mb-6">Focused, practical training and ready-to-use templates to help you master AI tools, develop learning resources, and make informed technology choices.</p>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
-  <!-- Intro -->
-  <section class="bg-[var(--light)]/60 border-y border-slate-200">
-    <div class="mx-auto max-w-7xl px-4 py-10">
-      <h2 class="text-3xl md:text-4xl font-extrabold leading-tight">Everyday AI, eLearning Courses & Templates</h2>
-      <p class="mt-4 text-[17px] leading-7 text-slate-700">Focused, practical training and ready-to-use templates to help you master AI tools, develop learning resources, and make informed technology choices.</p>
-      <div class="mt-6 flex flex-wrap gap-3">
-        <span class="chip active" data-category="all">All</span>
-        <span class="chip" data-category="courses">Short courses</span>
-        <span class="chip" data-category="templates">Templates</span>
+      <!-- Everyday AI - Copilot -->
+      <div class="bg-white rounded-lg shadow hover:shadow-lg overflow-hidden">
+        <img src="Every%20day%20AI%20-%20Copilot.png" alt="Everyday AI - Copilot" class="w-full h-48 object-cover">
+        <div class="p-4">
+          <span class="text-xs bg-pink-500 text-white px-2 py-1 rounded">New</span>
+          <h2 class="font-semibold mt-2">Every day AI - Copilot</h2>
+          <p class="text-gray-600">Use Microsoft Copilot across Word, Excel, Outlook & Teams to plan, write, analyse and organise faster.</p>
+          <p class="font-semibold mt-2">$49.50 inc GST</p>
+          <button class="text-teal-600 mt-2" onclick="openModal('copilot')">View details</button>
+        </div>
       </div>
-    </div>
-  </section>
 
-  <!-- Grid -->
-  <main class="mx-auto max-w-7xl px-4 py-10">
-    <div id="grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-  </main>
+      <!-- Everyday AI - Gemini -->
+      <div class="bg-white rounded-lg shadow hover:shadow-lg overflow-hidden">
+        <img src="Every%20day%20AI%20-%20Gemini.png" alt="Everyday AI - Gemini" class="w-full h-48 object-cover">
+        <div class="p-4">
+          <span class="text-xs bg-pink-500 text-white px-2 py-1 rounded">New</span>
+          <h2 class="font-semibold mt-2">Every day AI - Gemini</h2>
+          <p class="text-gray-600">Leverage Google’s Gemini in Gmail, Docs, Sheets & Meet to draft, summarise, and analyse data.</p>
+          <p class="font-semibold mt-2">$49.50 inc GST</p>
+          <button class="text-teal-600 mt-2" onclick="openModal('gemini')">View details</button>
+        </div>
+      </div>
 
-  <!-- Modal (product details) -->
-  <div id="productModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 p-4" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="bg-white max-w-lg w-full rounded-xl shadow-lg overflow-hidden relative">
-      <button onclick="closeModal()" class="absolute top-3 right-3 text-slate-500 hover:text-slate-700 text-2xl font-bold" aria-label="Close">&times;</button>
-      <img id="modalImg" class="w-full h-56 object-cover" alt=""/>
-      <div class="p-6">
-        <h3 id="modalTitle" class="text-xl font-extrabold"></h3>
-        <p id="modalDesc" class="mt-3 text-slate-700"></p>
-        <ul id="modalBullets" class="mt-4 list-disc list-inside text-slate-700 hidden"></ul>
-        <p id="modalNote" class="mt-4 text-xs text-slate-500 hidden"></p>
-        <div class="mt-6 flex items-center justify-between">
-          <span id="modalPrice" class="font-extrabold"></span>
-          <a id="modalPay" href="#" class="btn btn-primary px-4 py-2">Add to cart</a>
+      <!-- Everyday AI - ChatGPT -->
+      <div class="bg-white rounded-lg shadow hover:shadow-lg overflow-hidden">
+        <img src="Every%20day%20AI%20-%20ChatGPT.png" alt="Everyday AI - ChatGPT" class="w-full h-48 object-cover">
+        <div class="p-4">
+          <span class="text-xs bg-pink-500 text-white px-2 py-1 rounded">New</span>
+          <h2 class="font-semibold mt-2">Every day AI - ChatGPT</h2>
+          <p class="text-gray-600">Master ChatGPT for ideation, drafting, research and problem-solving.</p>
+          <p class="font-semibold mt-2">$49.50 inc GST</p>
+          <button class="text-teal-600 mt-2" onclick="openModal('chatgpt')">View details</button>
+        </div>
+      </div>
+
+      <!-- Developing online case studies -->
+      <div class="bg-white rounded-lg shadow hover:shadow-lg overflow-hidden">
+        <img src="Developing%20online%20case%20studies.png" alt="Developing online case studies" class="w-full h-48 object-cover">
+        <div class="p-4">
+          <span class="text-xs bg-purple-500 text-white px-2 py-1 rounded">Free</span>
+          <h2 class="font-semibold mt-2">Developing online case studies</h2>
+          <p class="text-gray-600">Tips for creating engaging short and long case studies.</p>
+          <p class="font-semibold mt-2">Free</p>
+          <button class="text-teal-600 mt-2" onclick="openModal('case-studies')">View details</button>
+        </div>
+      </div>
+
+      <!-- Learning Design Template -->
+      <div class="bg-white rounded-lg shadow hover:shadow-lg overflow-hidden">
+        <img src="Learning%20Design%20Template.png" alt="Learning Design Template" class="w-full h-48 object-cover">
+        <div class="p-4">
+          <h2 class="font-semibold mt-2">Learning Design Template</h2>
+          <p class="text-gray-600">Fill-in template for course design — outcomes, sequence, and assessment.</p>
+          <p class="font-semibold mt-2">$18.00 inc GST</p>
+          <button class="text-teal-600 mt-2" onclick="openModal('learning-template')">View details</button>
+        </div>
+      </div>
+
+      <!-- LMS Needs Analysis -->
+      <div class="bg-white rounded-lg shadow hover:shadow-lg overflow-hidden">
+        <img src="LMS%20Needs%20Analysis.png" alt="LMS Needs Analysis" class="w-full h-48 object-cover">
+        <div class="p-4">
+          <h2 class="font-semibold mt-2">LMS Needs Analysis</h2>
+          <p class="text-gray-600">Worksheet to identify LMS requirements before talking to vendors.</p>
+          <p class="font-semibold mt-2">$25.00 inc GST</p>
+          <button class="text-teal-600 mt-2" onclick="openModal('lms-analysis')">View details</button>
         </div>
       </div>
     </div>
-  </div>
-
-  <script>
-    // Base path to your GitHub Pages repo with images in the root
-    const baseImgPath = "https://kathrynmcgilvrayeles.github.io/ELES-Store-Development-Webpage/";
-    const srcFromName = (name) => baseImgPath + encodeURIComponent(name);
-
-    const PRODUCTS = [
-      {
-        id:"everyday-copilot",
-        title:"Every day AI - Copilot",
-        category:"courses",
-        price:49.50,
-        badge:"New",
-        imgName:"Every day AI - Copilot.png",
-        desc:"Use Microsoft Copilot across Word, Excel, Outlook & Teams to plan, write, analyse and organise faster.",
-        details:"Harness Copilot inside Microsoft 365 to draft reports, analyse data, summarise emails and meetings, and plan projects. Includes prompt patterns and hands-on tasks.",
-        bullets:["Copilot in Word, Excel, Outlook & Teams","Prompt patterns for common tasks","Accuracy checks & privacy considerations"],
-        pay:"#"
-      },
-      {
-        id:"everyday-gemini",
-        title:"Every day AI - Gemini",
-        category:"courses",
-        price:49.50,
-        badge:"New",
-        imgName:"Every day AI - Gemini.png",
-        desc:"Leverage Google’s Gemini in Gmail, Docs, Sheets & Meet to draft, summarise, and analyse data.",
-        details:"Integrate Gemini into Google Workspace to speed up writing, research and spreadsheet work. Practical prompts and live examples included.",
-        bullets:["Gemini in Docs, Sheets, Gmail & Meet","Summarising, drafting, analysis workflows","Bias, privacy and quality checks"],
-        pay:"#"
-      },
-      {
-        id:"everyday-chatgpt",
-        title:"Every day AI - ChatGPT",
-        category:"courses",
-        price:49.50,
-        badge:"New",
-        imgName:"Every day AI - ChatGPT.png",
-        desc:"Master ChatGPT for ideation, drafting, research and problem-solving.",
-        details:"Use ChatGPT to brainstorm, structure documents, create learning resources and troubleshoot. Learn to evaluate and refine outputs to professional standards.",
-        bullets:["Prompt frameworks for different tasks","Iterating from draft to polished output","Evaluating accuracy & tone"],
-        pay:"#"
-      },
-      {
-        id:"dev-online-case-studies",
-        title:"Developing online case studies",
-        category:"courses",
-        price:0,
-        badge:"Free",
-        imgName:"Developing online case studies.png",
-        desc:"Tips for creating engaging short and long case studies.",
-        details:"Develop confident case-writing skills with storytelling, empathy mapping, and planning strategies. Choose the right level of complexity and learn how to measure engagement.",
-        bullets:["The importance of storytelling","The impact of empathy on the learner","Planning strategies","Technological considerations","Monitoring and measuring learner engagement"],
-        note:"All information contained in this course is copyright to eLearning Educational Solutions Pty Ltd and cannot be reused, reproduced or modified without the author's permission.",
-        pay:"#"
-      },
-      {
-        id:"learning-design-template",
-        title:"Learning Design Template",
-        category:"templates",
-        price:18,
-        badge:"",
-        imgName:"Learning Design Template.png",
-        desc:"Fill‑in template for course design — outcomes, sequence, and assessment.",
-        details:"Plan your course from goals to evaluation with a structured template covering outcomes, learner personas, content sequencing, assessment design, and resources.",
-        bullets:["Define outcomes & success criteria","Map sequence & activities","Plan assessments & resources"],
-        pay:"#"
-      },
-      {
-        id:"lms-needs-analysis",
-        title:"LMS Needs Analysis",
-        category:"templates",
-        price:25,
-        badge:"",
-        imgName:"LMS Needs Analysis.png",
-        desc:"Worksheet to identify LMS requirements before talking to vendors.",
-        details:"Clarify must‑haves vs nice‑to‑haves across features, integrations, budget, support, and user experience so vendor conversations stay focused.",
-        bullets:["Feature & integration checklist","Budget & support considerations","User roles, compliance & reporting"],
-        pay:"#"
-      }
-    ];
-
-    const grid = document.getElementById('grid');
-    const chips = document.querySelectorAll('.chip');
-    const modal = document.getElementById('productModal');
-    const modalImg = document.getElementById('modalImg');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalDesc = document.getElementById('modalDesc');
-    const modalBullets = document.getElementById('modalBullets');
-    const modalNote = document.getElementById('modalNote');
-    const modalPrice = document.getElementById('modalPrice');
-    const modalPay = document.getElementById('modalPay');
-
-    const state = { category: 'all' };
-
-    function currency(n){
-      if(n === 0) return 'Free';
-      return `${new Intl.NumberFormat('en-AU',{style:'currency',currency:'AUD'}).format(n)} inc GST`;
-    }
-
-    function openModal(product){
-      const imgSrc = product.img || srcFromName(product.imgName);
-      modalImg.src = imgSrc;
-      modalImg.alt = product.title;
-      modalTitle.textContent = product.title;
-      modalDesc.textContent = product.details;
-
-      if(product.bullets && product.bullets.length){
-        modalBullets.innerHTML = product.bullets.map(b=>`<li>${b}</li>`).join('');
-        modalBullets.classList.remove('hidden');
-      } else {
-        modalBullets.classList.add('hidden');
-        modalBullets.innerHTML = '';
-      }
-
-      if(product.note){
-        modalNote.textContent = product.note;
-        modalNote.classList.remove('hidden');
-      } else {
-        modalNote.classList.add('hidden');
-        modalNote.textContent = '';
-      }
-
-      modalPrice.textContent = currency(product.price);
-      modalPay.textContent = product.price === 0 ? 'Get Free' : 'Add to cart';
-      modalPay.href = product.pay;
-
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    }
-
-    function closeModal(){
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-    }
-
-    function cardImage(p){
-      return p.img || srcFromName(p.imgName);
-    }
-
-    function renderProducts(){
-      const items = PRODUCTS.filter(p => state.category==='all' ? true : p.category===state.category);
-      grid.innerHTML = items.map(p=>`
-        <article class="group relative bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-soft flex flex-col">
-          ${p.badge?`<span class='absolute left-3 top-3 text-xs font-bold bg-[var(--pink)] text-white px-2 py-1 rounded-full'>${p.badge}</span>`:''}
-          <button onclick='openModal(${JSON.stringify(p)})' class="text-left">
-            <img src="${cardImage(p)}" alt="${p.title}" class="h-48 w-full object-cover" loading="lazy"/>
-            <div class="p-5 flex-1 flex flex-col">
-              <h3 class="text-lg font-extrabold">${p.title}</h3>
-              <p class="mt-2 text-sm text-slate-600 flex-1">${p.desc}</p>
-              <div class="mt-4 flex items-center justify-between">
-                <span class="font-extrabold">${currency(p.price)}</span>
-                <span class="text-[var(--teal)] text-sm underline">View details</span>
-              </div>
-            </div>
-          </button>
-        </article>`).join('');
-    }
-
-    chips.forEach(ch=> ch.addEventListener('click',()=>{
-      chips.forEach(c=>c.classList.remove('active'));
-      ch.classList.add('active');
-      state.category = ch.dataset.category;
-      renderProducts();
-    }));
-
-    renderProducts();
-  </script>
+  </section>
+  <!-- Modals would be defined here with the course details, bullets, and notes -->
 </body>
 </html>
